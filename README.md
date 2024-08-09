@@ -28,7 +28,7 @@ npm i express dotenv mongoose
 - second appreoch is that you can write code in seperate file like db connection code another file
 - a global object that gives information about and controls the node. js process
 - process.exit() is method use exit from current nodejs process it take an integer like 0 or 1 , 0 means exit with out any reason while parameter 1 indicate that exit from nodejs process only in failiur
-- 
+-
 
 ### first approch in (index.ts)
 
@@ -58,5 +58,23 @@ dotenv.config({ path: ".env" }); // Ensure the path is correct
 })();
 ```
 
-
 ## video 03 (api response or api error handle)
+
+### desC:
+
+this video is about why we make classes of api response like error and success in production grade aap and in compnanies
+
+#### installation packages
+
+```bash
+npm i cors
+npm i cookie-parser
+```
+
+#### cors ( cross origin resourse shairing)
+
+a browser security feature that allow to client web application to access data from from different browser
+
+#### cookie-parses
+
+Extracts the cookie data from the HTTP request and converts it into a usable format that can be accessed by the server-side code
