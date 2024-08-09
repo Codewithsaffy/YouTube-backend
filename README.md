@@ -78,3 +78,53 @@ a browser security feature that allow to client web application to access data f
 #### cookie-parses
 
 Extracts the cookie data from the HTTP request and converts it into a usable format that can be accessed by the server-side code
+
+## video four (user and video models and jwt & bcrypt usage)
+
+### Installation
+
+```bash
+npm i jsonwebtoken brypt
+```
+
+#### JWT (jsonwebtoken)
+
+- JWT is bearer token which help in secuerity purpose like it take a data , secretkey and expireytime and generate a token in string, it store data in token
+
+- JSON Web Token (JWT) is an open standard that allows for the secure transmission of information between two parties as a JSON object. JWTs are pronounced "jot" and are often used for authentication and information exchange.
+
+#### brypt
+
+- brypt is a package which help us to save passaward in hash form which provide security and we can campare passward to verify this is correct or not.
+
+### Pre Middleware
+
+- pre middleware is a middleware which help us to perform any fn just before data save
+
+like
+
+```ts
+userSchema.pre("save", function (next) {
+  if (!this.isModified) return next();
+  this.passward = bcrypt.hash(this.passward, 10);
+  return next();
+});
+```
+
+### create own methods
+
+it is a method to bulid own custom methods like this
+
+```ts
+userSchema.methods.generateTocken = function () {
+  jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.key,
+    {
+      expirseIn: "1d",
+    },
+  );
+};
+```
