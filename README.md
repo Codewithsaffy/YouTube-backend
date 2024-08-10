@@ -128,3 +128,79 @@ userSchema.methods.generateTocken = function () {
   );
 };
 ```
+
+## VIDEO 05 (file uploding using cloudnary service (sdk) and multer middleware)
+
+### cloudnary
+
+- cloudnay is a cloud base managment platform that allow to user to store, optmize and delevier videos , images for website and application
+
+- cloudnary is sdk(Software development kit) which means a set of tools for building software for specific platforms. SDKs can include building blocks, debuggers, code libraries, and frameworks. They can also include documentation and other resources to help developers efficiently build apps.
+
+code
+
+```ts
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
+
+// Cloudinary is a cloud-based media management platform that allows users to store, optimize, and deliver images and videos for websites and applications
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDNARY_CLOUD_NAME,
+  api_key: process.env.CLOUDNARY_API_KEY,
+  api_secret: process.env.CLOUDNARY_API_SECRET,
+});
+
+async function fileUploader(localfilepath: string) {
+  try {
+    if (!localfilepath) return null;
+    // file upload on cloudnary
+    const response = await cloudinary.uploader.upload(localfilepath, {
+      resource_type: "auto",
+    });
+    // file Uploaded successfull
+    console.log(response);
+    return response;
+  } catch (error) {
+    // remove the saved tempror file upload operation is failed
+    fs.unlinkSync(localfilepath);
+  }
+}
+```
+
+### multer
+
+#### DEFINAION
+
+Multer is a Node.js middleware used for handling multipart/form-data, which is primarily used for uploading files. It makes it easy to manage file uploads by parsing the incoming file data and storing the files in the server's memory or on the disk.
+
+1. **Importing Multer**:
+
+   - The code starts by importing `multer`, a middleware used to handle file uploads in Node.js.
+
+2. **Storage Configuration**:
+
+   - The `storage` object is created using `multer.diskStorage`, which tells Multer how to store the uploaded files on the server's disk (hard drive).
+
+3. **Destination**:
+
+   - The `destination` function inside `storage` decides where to save the uploaded files. Here, it saves them in a folder called `./public/temp`. The `cb(null, "./public/temp")` means there's no error (`null`), and the file should be saved in the `./public/temp` folder.
+
+4. **Filename**:
+
+   - The `filename` function sets the name of the file when it’s saved. Here, it uses the original name of the file (which is stored in `file.fieldname`). The `cb(null, file.fieldname)` means there's no error (`null`), and the file should be saved with its original name.
+
+5. **Exporting the Upload Configuration**:
+   - Finally, the `upload` object is exported so it can be used in other parts of the application. This object is created by passing the `storage` configuration to `multer({ storage: storage })`.
+
+### Usage Example:
+
+This `upload` object can be used in a route to handle file uploads like this:
+
+```javascript
+app.post("/upload", upload.single("file"), (req, res) => {
+  res.send("File uploaded successfully");
+});
+```
+
+- This would allow you to upload a file through a form, and the file would be saved in the `./public/temp` folder with its original name.
