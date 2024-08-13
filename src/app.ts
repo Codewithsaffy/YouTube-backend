@@ -40,4 +40,10 @@ app.use(express.static("public"));
 // ( cookie parser is use to access cookies and manage cookies)
 app.use(cookisParser());
 
+//* ROUTER SECTION
+
+import userRouter from "./routes/User.routes.js";
+
+app.use("/api/v1/user", userRouter);
+
 export { app };

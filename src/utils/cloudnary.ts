@@ -24,3 +24,5 @@ async function fileUploader(localfilepath: string) {
     fs.unlinkSync(localfilepath);
   }
 }
+
+export default fileUploader

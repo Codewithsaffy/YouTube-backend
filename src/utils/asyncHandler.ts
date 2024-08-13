@@ -3,13 +3,14 @@
 // in promises
 
 const asyncHandler = (func: any) => {
-  (res: any, req: any, next: any) => {
-    Promise.resolve(func(res, req, next)).catch((err) => {
+  return (req: any, res: any, next: any) => {
+    Promise.resolve(func(req, res, next)).catch((err) => {
       next(err);
     });
   };
 };
 
+export { asyncHandler };
 // try catch
 
 // const asyncHandler = (fn: any) => {
