@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema(
 
 // pre middle is use to perform any fn just before save
 userSchema.pre("save", async function (next) {
-  if (!this.isModified) return next();
+  if (!this.isModified("passward")) return next();
 
   this.passward = await bcrypt.hash(this.passward, 10);
   next();
