@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
+import { upload } from "../middlewares/multer.middleware.js";
 
 // Cloudinary is a cloud-based media management platform that allows users to store, optimize, and deliver images and videos for websites and applications
 
